@@ -18,7 +18,7 @@ body {
     padding: 15px 30px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Pushes logo left & buttons right */
+    justify-content: space-between;
     position: fixed;
     top: 0;
     left: 0;
@@ -26,14 +26,12 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Logo Styling */
 .header h3 {
     color: white;
     font-size: 22px;
     font-weight: bold;
 }
 
-/* Navigation Links */
 .nav-links {
     list-style: none;
     display: flex;
@@ -57,30 +55,30 @@ body {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Login Box */
-.login-box {
+/* Signup Box (Same as Login) */
+.signup-box {
     background: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 350px;
-    margin: 100px auto 0; /* Centering it with margin */
+    margin: 100px auto 0;
 }
 
-.login-box h1 {
+.signup-box h1 {
     margin-bottom: 20px;
     font-size: 24px;
 }
 
-.login-box label {
+.signup-box label {
     display: block;
     text-align: left;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.login-box input {
+.signup-box input {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -88,7 +86,7 @@ body {
     border-radius: 5px;
 }
 
-.login-box button {
+.signup-box button {
     width: 100%;
     padding: 10px;
     background: #007bff;
@@ -100,7 +98,7 @@ body {
     transition: background 0.3s ease-in-out;
 }
 
-.login-box button:hover {
+.signup-box button:hover {
     background: #0056b3;
 }
 
