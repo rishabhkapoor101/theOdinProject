@@ -1,15 +1,21 @@
-require("dotenv").config();
+// require("dotenv").config();
 
-const express = require("express");
-const cors = require("cors");
-const bcrypt = require("bcrypt");
+// const express = require("express");
+// const cors = require("cors");
+// const bcrypt = require("bcrypt");
 
-// import { DataTypes, Sequelize } from '@sequelize/core';
-// import { PostgresDialect } from '@sequelize/postgres';
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import bcrypt from 'bcrypt';
+import {v4 as uuidv4} from 'uuid';
+
+import { DataTypes, Sequelize } from '@sequelize/core';
+import { PostgresDialect } from '@sequelize/postgres';
 // import {DataTypes, Sequelize} = require('@sequelize/core');
 
-const { Sequelize, DataTypes } = require('@sequelize/core');
-const {PostgresDialect} = require('@sequelize/postgres')
+// const { Sequelize, DataTypes } = require('@sequelize/core');
+// const {PostgresDialect} = require('@sequelize/postgres')
 
 const sequelize = new Sequelize({
   dialect: PostgresDialect,
@@ -22,59 +28,73 @@ const sequelize = new Sequelize({
   ssl: false,
   clientMinMessages: 'notice',
 });
+// const { v4: uuidv4 } = require('uuid'); // Import UUID generator
 
 
 const user = sequelize.define("users", 
     {
-        id:{
-            type: DataTypes.UUID,          // Correct type
-            defaultValue: DataTypes.UUIDV4, // Default value generator
-            allowNull:false,
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull: false,
             primaryKey: true
         },
-        firstName:{
+        firstName: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        lastName:{
-            type:DataTypes.STRING,
+        lastName: {
+            type: DataTypes.STRING,
             allowNull: false
         },
-        phone:{
+        phone: {
             type: DataTypes.STRING(20),
             allowNull: false,
             validate: {
-              is: /^\+?[\d\s\-\(\)]{6,20}$/i
+                is: /^\+?[\d\s\-\(\)]{6,20}$/i
             }
         },
-        email:{
-            type: DataTypes.STRING,  // VARCHAR(255) by default
+        email: {
+            type: DataTypes.STRING,
             allowNull: false,
-            unique: true,            // Enforce unique emails
+            unique: true,
             validate: {
-                isEmail: true,         // Built-in Sequelize validation
-                notEmpty: true,        // Prevent empty strings
+                isEmail: true,
+                notEmpty: true,
                 len: [5, 254]
             }
         },
-        password:{
+        password: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        // createdAt: {
-        //     type: DataTypes.DATE,
-        //     defaultValue: DataTypes.NOW,
-        //     allowNull: false
-        // }
-
+        }
     },
     {
-        timestamps: true,
+        timestamps: true, // This enables createdAt and updatedAt
+        createdAt: 'createdAt', // Explicitly name the timestamp columns
+        updatedAt: 'updatedAt',
+        tableName: 'users', // Explicit table name
+        schema: 'application_v1', // Explicit schema name
+        hooks: {
+            beforeValidate: (user) => {
+                if (!user.id) {
+                    user.id = uuidv4(); // Extra protection for UUID
+                }
+            }
+        }
     }
 );
 
-// await user.sync({force: true})
 
-(async()=>
-    await user.sync({force: true})
-)();
+
+// (async()=>
+//     // In your migration file
+//     // await user.sync({force: true});
+
+//     await sequelize.dropSchema('application_v1', { cascade: true }),
+//     await sequelize.createSchema('application_v1'),
+//     await sequelize.sync({ force: true })
+// )();
+
+
+await sequelize.sync({force:true})
