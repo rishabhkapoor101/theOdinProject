@@ -1,8 +1,8 @@
 import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
-import bcrypt from 'bcrypt';
-import {v4 as uuidv4} from 'uuid';
+// import express from 'express';
+// import cors from 'cors';
+// import bcrypt from 'bcrypt';
+// import {v4 as uuidv4} from 'uuid';
 
 import { DataTypes, Sequelize } from '@sequelize/core';
 import { PostgresDialect } from '@sequelize/postgres';
@@ -25,8 +25,6 @@ const User = sequelize.define('User', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
-    // type: sql.uuid,
-    // defaultValue: sql.uuidv4,
     allowNull: false,
     primaryKey: true
   },
@@ -82,7 +80,7 @@ const newUser = await User.create({
   firstName: "John",
   lastName: "Doe",
   phone: "+15551234567",
-  email: "johnny@example.com",
+  email: "johnny@exampple.com",
   password: "hashedpassword",
 });
 console.log(newUser.id);
