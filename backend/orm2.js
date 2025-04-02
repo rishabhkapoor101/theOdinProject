@@ -6,10 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 
 import { DataTypes, Sequelize } from '@sequelize/core';
 import { PostgresDialect } from '@sequelize/postgres';
-// import {DataTypes, Sequelize} = require('@sequelize/core');
 
-// const { Sequelize, DataTypes } = require('@sequelize/core');
-// const {PostgresDialect} = require('@sequelize/postgres')
 
 const sequelize = new Sequelize({
   dialect: PostgresDialect,
